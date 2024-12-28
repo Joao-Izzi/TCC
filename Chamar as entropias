@@ -1,0 +1,549 @@
+
+# CENÁRIO 1
+
+w = matrix(c(     0,     10,   0, #
+                  0,      0,    10, #
+                  0,      0,    0   )     , nrow=n,ncol=n, byrow = T) #
+
+ent_trans_rep <- function(t,memoria,B){
+  a <- vector()
+  b <- vector()
+  for (i in 1:B){
+    
+    X = matrix(c(1,0,0,
+                 0,1,1,
+                 0,0,1), nrow=n, byrow=T)
+    
+    
+    X = cbind(X, matrix(0,nrow=n,ncol=t))
+    X <- gera_cadeia_2(X)
+    
+    a[i] <- entropia_transferencia_conf(X[3,],X[1,],X[2,], 2, 1) #cadeia q cadeia que sofre a interferência, cadeia que interfere, Confundidores, memória e nºde confundidores
+    b[i] <- entropia_transferencia(X[3,],X[1,],2)
+    
+  }
+  c<- matrix(c(a,b),nrow = B,ncol = 2, byrow = FALSE)
+  return(c)
+}
+
+#set.seed(10)
+#valores_5000 <- ent_trans_rep(4996,2,100)
+#save(valores_5000, file = "Downloads/Izzi/valores_5000.RData")
+#
+#set.seed(10)
+#valores_10000 <- ent_trans_rep(9996,2,100)
+#save(valores_10000, file = "Downloads/Izzi/valores_10000.RData")
+#
+#set.seed(10)
+#valores_20000 <- ent_trans_rep(19996,2,100)
+#save(valores_20000, file = "Downloads/Izzi/valores_20000.RData")
+#
+#set.seed(10)
+#valores_40000 <- ent_trans_rep(39996,2,100)
+#save(valores_40000, file = "Downloads/Izzi/valores_40000.RData")
+
+#load("~/Downloads/Izzi/valores_5000.RData")
+#load("~/Downloads/Izzi/valores_10000.RData")
+#load("~/Downloads/Izzi/valores_20000.RData")
+#load("~/Downloads/Izzi/valores_40000.RData")
+#valores_5000
+#valores_10000
+#valores_20000
+#valores_40000
+
+################################################################################
+################################################################################
+
+
+w = matrix(c(     0,     0.375,   0, #
+                  0,      0,    0.375, #  
+                  0,      0,    0   )     , nrow=n,ncol=n, byrow = T) #
+
+#CENARIO 2
+ent_trans_rep <- function(t,memoria,B){
+  a <- vector()
+  b <- vector()
+  for (i in 1:B){
+    
+    X = matrix(c(1,0,0,
+                 0,1,1,
+                 0,0,1), nrow=n, byrow=T)
+    
+    
+    X = cbind(X, matrix(0,nrow=n,ncol=t))
+    X <- gera_cadeia_2(X)
+    
+    a[i] <- entropia_transferencia_conf(X[3,],X[1,],X[2,], 2, 1) #cadeia q cadeia que sofre a interferência, cadeia que interfere, Confundidores, memória e nºde confundidores
+    b[i] <- entropia_transferencia(X[3,],X[1,],2)
+    print(a)
+    print(b)
+    
+  }
+  c<- matrix(c(a,b),nrow = B,ncol = 2, byrow = FALSE)
+  return(c)
+}
+
+
+set.seed(10)
+valores_5000_CEN2 <- ent_trans_rep(4996,2,100)
+save(valores_5000_CEN2, file = "Downloads/Izzi/valores_5000_CEN2.RData")
+
+set.seed(10)
+valores_10000_CEN2 <- ent_trans_rep(9996,2,100)
+save(valores_10000_CEN2, file = "Downloads/Izzi/valores_10000_CEN2.RData")
+
+set.seed(10)
+valores_20000_CEN2 <- ent_trans_rep(19996,2,100)
+save(valores_20000_CEN2, file = "Downloads/Izzi/valores_20000_CEN2.RData")
+
+set.seed(10)
+valores_40000_CEN2 <- ent_trans_rep(39996,2,100)
+save(valores_40000_CEN2, file = "Downloads/Izzi/valores_40000_CEN2.RData")
+
+
+################################################################################
+################################################################################
+
+
+w = matrix(c(     0,     -10,   0, #
+                  0,      0,    0.375, #
+                  0,      0,    0   )     , nrow=n,ncol=n, byrow = T) #
+
+#CENARIO 3
+ent_trans_rep <- function(t,memoria,B){
+  a <- vector()
+  b <- vector()
+  for (i in 1:B){
+    
+    X = matrix(c(1,0,0,
+                 0,1,1,
+                 0,0,1), nrow=n, byrow=T)
+    
+    
+    X = cbind(X, matrix(0,nrow=n,ncol=t))
+    X <- gera_cadeia_2(X)
+    
+    a[i] <- entropia_transferencia_conf(X[3,],X[1,],X[2,], 2, 1) #cadeia q cadeia que sofre a interferência, cadeia que interfere, Confundidores, memória e nºde confundidores
+    b[i] <- entropia_transferencia(X[3,],X[1,],2)
+    print(a)
+    print(b)
+    
+  }
+  c<- matrix(c(a,b),nrow = B,ncol = 2, byrow = FALSE)
+  return(c)
+}
+
+
+set.seed(10)
+valores_5000_CEN3 <- ent_trans_rep(4996,2,100)
+save(valores_5000_CEN3, file = "Downloads/Izzi/valores_5000_CEN3.RData")
+
+set.seed(10)
+valores_10000_CEN3 <- ent_trans_rep(9996,2,100)
+save(valores_10000_CEN3, file = "Downloads/Izzi/valores_10000_CEN3.RData")
+
+set.seed(10)
+valores_20000_CEN3 <- ent_trans_rep(19996,2,100)
+save(valores_20000_CEN3, file = "Downloads/Izzi/valores_20000_CEN3.RData")
+
+set.seed(10)
+valores_40000_CEN3 <- ent_trans_rep(39996,2,100)
+save(valores_40000_CEN3, file = "Downloads/Izzi/valores_40000_CEN3.RData")
+  
+
+################################################################################
+################################################################################
+
+
+w = matrix(c(     0,     -0.375,   0, #
+                  0,      0,    10, #
+                  0,      0,    0   )     , nrow=n,ncol=n, byrow = T) #
+
+#CENARIO 4
+ent_trans_rep <- function(t,memoria,B){
+  a <- vector()
+  b <- vector()
+
+  for (i in 1:B){
+    
+    X = matrix(c(1,0,0,
+                 0,1,1,
+                 0,0,1), nrow=n, byrow=T)
+    
+    
+    X = cbind(X, matrix(0,nrow=n,ncol=t))
+    X <- gera_cadeia_2(X)
+    
+    a[i] <- entropia_transferencia_conf(X[3,],X[1,],X[2,], 2, 1) #cadeia q cadeia que sofre a interferência, cadeia que interfere, Confundidores, memória e nºde confundidores
+    b[i] <- entropia_transferencia(X[3,],X[1,],2)
+    print(a)
+    print(b)
+    
+  }
+  c<- matrix(c(a,b),nrow = B,ncol = 2, byrow = FALSE)
+  return(c)
+}
+
+
+set.seed(10)
+valores_5000_CEN4 <- ent_trans_rep(4996,2,100)
+save(valores_5000_CEN4, file = "Downloads/Izzi/valores_5000_CEN4.RData")
+
+set.seed(10)
+valores_10000_CEN4 <- ent_trans_rep(9996,2,100)
+save(valores_10000_CEN4, file = "Downloads/Izzi/valores_10000_CEN4.RData")
+
+set.seed(10)
+valores_20000_CEN4 <- ent_trans_rep(19996,2,100)
+save(valores_20000_CEN4, file = "Downloads/Izzi/valores_20000_CEN4.RData")
+
+set.seed(10)
+valores_40000_CEN4 <- ent_trans_rep(39996,2,100)
+save(valores_40000_CEN4, file = "Downloads/Izzi/valores_40000_CEN4.RData")
+
+
+#################################################################################
+#################################################################################
+#################################################################################
+
+ent_trans_rep <- function(t, memoria, B){
+  a <- vector()
+  b <- vector()
+  for (i in 1:B){
+    
+    X = matrix(c(1,0,0,
+                 0,1,1,
+                 0,0,1), nrow=n, byrow=T)
+    
+    
+    X = cbind(X, matrix(0,nrow=n,ncol=t))
+    X <- gera_cadeia_2(X)
+    
+    a[i] <- entropia_transferencia_conf(X[3,],X[1,],X[2,], 2, 1) #cadeia q cadeia que sofre a interferência, cadeia que interfere, Confundidores, memória e nºde confundidores
+    b[i] <- entropia_transferencia(X[3,],X[1,],2)
+    print(a)
+    print(b)
+    
+  }
+  c<- matrix(c(a,b),nrow = B,ncol = 2, byrow = FALSE)
+  return(c)
+}
+
+valores_teste <- matrix(NA, nrow = 10, ncol = 10)
+
+set.seed(10)
+for (i in 0:9){
+  w = matrix(c(     0,      i,    0, #
+                    0,      0,    10, #
+                    0,      0,    0   )     , nrow=n,ncol=n, byrow = T) #
+  
+  valores <- ent_trans_rep(39996,2,10)
+  valores_teste[,i] <- valores[,2]
+}
+
+# VERIFICANDO OS CASOS
+
+qchisq(0.001, 48, lower.tail = FALSE)
+qchisq(0.01, 48, lower.tail = FALSE)
+qchisq(0.05, 48, lower.tail = FALSE)
+qchisq(0.1, 48, lower.tail = FALSE)
+
+
+qchisq(0.001, 20, lower.tail = FALSE)
+qchisq(0.01, 20, lower.tail = FALSE)
+qchisq(0.05, 20, lower.tail = FALSE)
+qchisq(0.1, 20, lower.tail = FALSE)
+
+#CASO 1 E 5000 OBSERVAÇÕES
+
+sum(valores_5000[,1]>qchisq(0.001, 48, lower.tail = FALSE))
+sum(valores_5000[,1]>qchisq(0.01, 48, lower.tail = FALSE))
+sum(valores_5000[,1]>qchisq(0.05, 48, lower.tail = FALSE))
+sum(valores_5000[,1]>qchisq(0.1, 48, lower.tail = FALSE))
+
+
+sum(valores_5000[,2]>qchisq(0.001, 20, lower.tail = FALSE))
+sum(valores_5000[,2]>qchisq(0.01, 20, lower.tail = FALSE))
+sum(valores_5000[,2]>qchisq(0.05, 20, lower.tail = FALSE))
+sum(valores_5000[,2]>qchisq(0.1, 20, lower.tail = FALSE))
+
+#CASO 1 E 10000 OBSERVAÇÕES
+
+sum(valores_10000[,1]>qchisq(0.001, 48, lower.tail = FALSE))
+sum(valores_10000[,1]>qchisq(0.01, 48, lower.tail = FALSE))
+sum(valores_10000[,1]>qchisq(0.05, 48, lower.tail = FALSE))
+sum(valores_10000[,1]>qchisq(0.1, 48, lower.tail = FALSE))
+
+
+sum(valores_10000[,2]>qchisq(0.001, 20, lower.tail = FALSE))
+sum(valores_10000[,2]>qchisq(0.01, 20, lower.tail = FALSE))
+sum(valores_10000[,2]>qchisq(0.05, 20, lower.tail = FALSE))
+sum(valores_10000[,2]>qchisq(0.1, 20, lower.tail = FALSE))
+
+
+#CASO 1 E 20000 OBSERVAÇÕES
+
+sum(valores_20000[,1]>qchisq(0.001, 48, lower.tail = FALSE))
+sum(valores_20000[,1]>qchisq(0.01, 48, lower.tail = FALSE))
+sum(valores_20000[,1]>qchisq(0.05, 48, lower.tail = FALSE))
+sum(valores_20000[,1]>qchisq(0.1, 48, lower.tail = FALSE))
+
+
+sum(valores_20000[,2]>qchisq(0.001, 20, lower.tail = FALSE))
+sum(valores_20000[,2]>qchisq(0.01, 20, lower.tail = FALSE))
+sum(valores_20000[,2]>qchisq(0.05, 20, lower.tail = FALSE))
+sum(valores_20000[,2]>qchisq(0.1, 20, lower.tail = FALSE))
+
+#CASO 1 E 40000 OBSERVAÇÕES
+
+sum(valores_40000[,1]>qchisq(0.001, 48, lower.tail = FALSE))
+sum(valores_40000[,1]>qchisq(0.01, 48, lower.tail = FALSE))
+sum(valores_40000[,1]>qchisq(0.05, 48, lower.tail = FALSE))
+sum(valores_40000[,1]>qchisq(0.1, 48, lower.tail = FALSE))
+
+
+sum(valores_40000[,2]>qchisq(0.001, 20, lower.tail = FALSE))
+sum(valores_40000[,2]>qchisq(0.01, 20, lower.tail = FALSE))
+sum(valores_40000[,2]>qchisq(0.05, 20, lower.tail = FALSE))
+sum(valores_40000[,2]>qchisq(0.1, 20, lower.tail = FALSE))
+
+
+#CASO 2 E 5000 OBSERVAÇÕES
+
+sum(valores_5000_CEN2[,1]>qchisq(0.001, 48, lower.tail = FALSE))
+sum(valores_5000_CEN2[,1]>qchisq(0.01, 48, lower.tail = FALSE))
+sum(valores_5000_CEN2[,1]>qchisq(0.05, 48, lower.tail = FALSE))
+sum(valores_5000_CEN2[,1]>qchisq(0.1, 48, lower.tail = FALSE))
+
+
+sum(valores_5000_CEN2[,2]>qchisq(0.001, 20, lower.tail = FALSE))
+sum(valores_5000_CEN2[,2]>qchisq(0.01, 20, lower.tail = FALSE))
+sum(valores_5000_CEN2[,2]>qchisq(0.05, 20, lower.tail = FALSE))
+sum(valores_5000_CEN2[,2]>qchisq(0.1, 20, lower.tail = FALSE))
+
+#CASO 2 E 10000 OBSERVAÇÕES
+
+sum(valores_10000_CEN2[,1]>qchisq(0.001, 48, lower.tail = FALSE))
+sum(valores_10000_CEN2[,1]>qchisq(0.01, 48, lower.tail = FALSE))
+sum(valores_10000_CEN2[,1]>qchisq(0.05, 48, lower.tail = FALSE))
+sum(valores_10000_CEN2[,1]>qchisq(0.1, 48, lower.tail = FALSE))
+
+
+sum(valores_10000_CEN2[,2]>qchisq(0.001, 20, lower.tail = FALSE))
+sum(valores_10000_CEN2[,2]>qchisq(0.01, 20, lower.tail = FALSE))
+sum(valores_10000_CEN2[,2]>qchisq(0.05, 20, lower.tail = FALSE))
+sum(valores_10000_CEN2[,2]>qchisq(0.1, 20, lower.tail = FALSE))
+
+
+#CASO 2 E 20000 OBSERVAÇÕES
+
+sum(valores_20000_CEN2[,1]>qchisq(0.001, 48, lower.tail = FALSE))
+sum(valores_20000_CEN2[,1]>qchisq(0.01, 48, lower.tail = FALSE))
+sum(valores_20000_CEN2[,1]>qchisq(0.05, 48, lower.tail = FALSE))
+sum(valores_20000_CEN2[,1]>qchisq(0.1, 48, lower.tail = FALSE))
+
+
+sum(valores_20000_CEN2[,2]>qchisq(0.001, 20, lower.tail = FALSE))
+sum(valores_20000_CEN2[,2]>qchisq(0.01, 20, lower.tail = FALSE))
+sum(valores_20000_CEN2[,2]>qchisq(0.05, 20, lower.tail = FALSE))
+sum(valores_20000_CEN2[,2]>qchisq(0.1, 20, lower.tail = FALSE))
+
+#CASO 2 E 40000 OBSERVAÇÕES
+
+sum(valores_40000_CEN2[,1]>qchisq(0.001, 48, lower.tail = FALSE))
+sum(valores_40000_CEN2[,1]>qchisq(0.01, 48, lower.tail = FALSE))
+sum(valores_40000_CEN2[,1]>qchisq(0.05, 48, lower.tail = FALSE))
+sum(valores_40000_CEN2[,1]>qchisq(0.1, 48, lower.tail = FALSE))
+
+
+sum(valores_40000_CEN2[,2]>qchisq(0.001, 20, lower.tail = FALSE))
+sum(valores_40000_CEN2[,2]>qchisq(0.01, 20, lower.tail = FALSE))
+sum(valores_40000_CEN2[,2]>qchisq(0.05, 20, lower.tail = FALSE))
+sum(valores_40000_CEN2[,2]>qchisq(0.1, 20, lower.tail = FALSE))
+
+
+#CASO 3 E 5000 OBSERVAÇÕES
+
+sum(valores_5000_CEN3[,1]>qchisq(0.001, 48, lower.tail = FALSE))
+sum(valores_5000_CEN3[,1]>qchisq(0.01, 48, lower.tail = FALSE))
+sum(valores_5000_CEN3[,1]>qchisq(0.05, 48, lower.tail = FALSE))
+sum(valores_5000_CEN3[,1]>qchisq(0.1, 48, lower.tail = FALSE))
+
+
+sum(valores_5000_CEN3[,2]>qchisq(0.001, 20, lower.tail = FALSE))
+sum(valores_5000_CEN3[,2]>qchisq(0.01, 20, lower.tail = FALSE))
+sum(valores_5000_CEN3[,2]>qchisq(0.05, 20, lower.tail = FALSE))
+sum(valores_5000_CEN3[,2]>qchisq(0.1, 20, lower.tail = FALSE))
+
+#CASO 3 E 10000 OBSERVAÇÕES
+
+sum(valores_10000_CEN3[,1]>qchisq(0.001, 48, lower.tail = FALSE))
+sum(valores_10000_CEN3[,1]>qchisq(0.01, 48, lower.tail = FALSE))
+sum(valores_10000_CEN3[,1]>qchisq(0.05, 48, lower.tail = FALSE))
+sum(valores_10000_CEN3[,1]>qchisq(0.1, 48, lower.tail = FALSE))
+
+
+sum(valores_10000_CEN3[,2]>qchisq(0.001, 20, lower.tail = FALSE))
+sum(valores_10000_CEN3[,2]>qchisq(0.01, 20, lower.tail = FALSE))
+sum(valores_10000_CEN3[,2]>qchisq(0.05, 20, lower.tail = FALSE))
+sum(valores_10000_CEN3[,2]>qchisq(0.1, 20, lower.tail = FALSE))
+
+
+#CASO 3 E 20000 OBSERVAÇÕES
+
+sum(valores_20000_CEN3[,1]>qchisq(0.001, 48, lower.tail = FALSE))
+sum(valores_20000_CEN3[,1]>qchisq(0.01, 48, lower.tail = FALSE))
+sum(valores_20000_CEN3[,1]>qchisq(0.05, 48, lower.tail = FALSE))
+sum(valores_20000_CEN3[,1]>qchisq(0.1, 48, lower.tail = FALSE))
+
+
+sum(valores_20000_CEN3[,2]>qchisq(0.001, 20, lower.tail = FALSE))
+sum(valores_20000_CEN3[,2]>qchisq(0.01, 20, lower.tail = FALSE))
+sum(valores_20000_CEN3[,2]>qchisq(0.05, 20, lower.tail = FALSE))
+sum(valores_20000_CEN3[,2]>qchisq(0.1, 20, lower.tail = FALSE))
+
+#CASO 3 E 40000 OBSERVAÇÕES
+
+sum(valores_40000_CEN3[,1]>qchisq(0.001, 48, lower.tail = FALSE))
+sum(valores_40000_CEN3[,1]>qchisq(0.01, 48, lower.tail = FALSE))
+sum(valores_40000_CEN3[,1]>qchisq(0.05, 48, lower.tail = FALSE))
+sum(valores_40000_CEN3[,1]>qchisq(0.1, 48, lower.tail = FALSE))
+
+
+sum(valores_40000_CEN3[,2]>qchisq(0.001, 20, lower.tail = FALSE))
+sum(valores_40000_CEN3[,2]>qchisq(0.01, 20, lower.tail = FALSE))
+sum(valores_40000_CEN3[,2]>qchisq(0.05, 20, lower.tail = FALSE))
+sum(valores_40000_CEN3[,2]>qchisq(0.1, 20, lower.tail = FALSE))
+
+
+#CASO 4 E 5000 OBSERVAÇÕES
+
+sum(valores_5000_CEN4[,1]>qchisq(0.001, 48, lower.tail = FALSE))
+sum(valores_5000_CEN4[,1]>qchisq(0.01, 48, lower.tail = FALSE))
+sum(valores_5000_CEN4[,1]>qchisq(0.05, 48, lower.tail = FALSE))
+sum(valores_5000_CEN4[,1]>qchisq(0.1, 48, lower.tail = FALSE))
+
+
+sum(valores_5000_CEN4[,2]>qchisq(0.001, 20, lower.tail = FALSE))
+sum(valores_5000_CEN4[,2]>qchisq(0.01, 20, lower.tail = FALSE))
+sum(valores_5000_CEN4[,2]>qchisq(0.05, 20, lower.tail = FALSE))
+sum(valores_5000_CEN4[,2]>qchisq(0.1, 20, lower.tail = FALSE))
+
+#CASO 4 E 10000 OBSERVAÇÕES
+
+sum(valores_10000_CEN4[,1]>qchisq(0.001, 48, lower.tail = FALSE))
+sum(valores_10000_CEN4[,1]>qchisq(0.01, 48, lower.tail = FALSE))
+sum(valores_10000_CEN4[,1]>qchisq(0.05, 48, lower.tail = FALSE))
+sum(valores_10000_CEN4[,1]>qchisq(0.1, 48, lower.tail = FALSE))
+
+
+sum(valores_10000_CEN4[,2]>qchisq(0.001, 20, lower.tail = FALSE))
+sum(valores_10000_CEN4[,2]>qchisq(0.01, 20, lower.tail = FALSE))
+sum(valores_10000_CEN4[,2]>qchisq(0.05, 20, lower.tail = FALSE))
+sum(valores_10000_CEN4[,2]>qchisq(0.1, 20, lower.tail = FALSE))
+
+
+#CASO 4 E 20000 OBSERVAÇÕES
+
+sum(valores_20000_CEN4[,1]>qchisq(0.001, 48, lower.tail = FALSE))
+sum(valores_20000_CEN4[,1]>qchisq(0.01, 48, lower.tail = FALSE))
+sum(valores_20000_CEN4[,1]>qchisq(0.05, 48, lower.tail = FALSE))
+sum(valores_20000_CEN4[,1]>qchisq(0.1, 48, lower.tail = FALSE))
+
+
+sum(valores_20000_CEN4[,2]>qchisq(0.001, 20, lower.tail = FALSE))
+sum(valores_20000_CEN4[,2]>qchisq(0.01, 20, lower.tail = FALSE))
+sum(valores_20000_CEN4[,2]>qchisq(0.05, 20, lower.tail = FALSE))
+sum(valores_20000_CEN4[,2]>qchisq(0.1, 20, lower.tail = FALSE))
+
+#CASO 3 E 40000 OBSERVAÇÕES
+
+sum(valores_40000_CEN4[,1]>qchisq(0.001, 48, lower.tail = FALSE))
+sum(valores_40000_CEN4[,1]>qchisq(0.01, 48, lower.tail = FALSE))
+sum(valores_40000_CEN4[,1]>qchisq(0.05, 48, lower.tail = FALSE))
+sum(valores_40000_CEN4[,1]>qchisq(0.1, 48, lower.tail = FALSE))
+
+
+  
+sum(valores_40000_CEN4[,2]>qchisq(0.001, 20, lower.tail = FALSE))
+sum(valores_40000_CEN4[,2]>qchisq(0.01, 20, lower.tail = FALSE))
+sum(valores_40000_CEN4[,2]>qchisq(0.05, 20, lower.tail = FALSE))
+sum(valores_40000_CEN4[,2]>qchisq(0.1, 20, lower.tail = FALSE))
+
+
+# Gráfico para j1 e graus de liberdade ?
+dados_j1 <- valores_40000[,1]
+gl_j1 <- 48
+
+x_j1 <- seq(-0.5, max(dados_j1) + 5, length = 1000)
+densidade_j1 <- dchisq(x_j1, df = gl_j1)
+
+grafico_j1 <- ggplot() +
+  geom_histogram(aes(x = dados_j1, y = ..density..), bins = 15, color = "black", fill = "lightblue", alpha = 0.7) +
+  geom_line(aes(x = x_j1, y = densidade_j1), color = "red", size = 1) +
+  theme_minimal() +
+  xlab("Valores") +
+  ylab("Densidade") +
+  ggtitle(paste("Cenário 1")) +
+  theme(plot.title = element_text(size = 10))  # Ajuste o tamanho do texto do título aqui
+# Mostrar o gráfico para j1
+print(grafico_j1)
+
+
+dados_j2 <- valores_40000_CEN2[,1]
+gl_j2 <- 48
+
+x_j2 <- seq(0, max(dados_j2) + 10, length = 1000)
+densidade_j2 <- dchisq(x_j2, df = gl_j2)
+
+grafico_j2 <- ggplot() +
+  geom_histogram(aes(x = dados_j2, y = ..density..), bins = 20, color = "black", fill = "lightblue", alpha = 0.7) +
+  geom_line(aes(x = x_j2, y = densidade_j2), color = "red", size = 1) +
+  theme_minimal() +
+  xlab("Valores") +
+  ylab("Densidade") +
+  ggtitle(paste("Cenário 2")) +
+  theme(plot.title = element_text(size = 10))  # Ajuste o tamanho do texto do título aqui
+# Mostrar o gráfico para j2
+print(grafico_j2)
+
+# Gráfico para j3 e graus de liberdade ?
+dados_j3 <- valores_40000_CEN3[,1]
+gl_j3 <- 48
+
+x_j3 <- seq(0, max(dados_j3) + 5, length = 1000)
+densidade_j3 <- dchisq(x_j3, df = gl_j3)
+
+grafico_j3 <- ggplot() +
+  geom_histogram(aes(x = dados_j3, y = ..density..), bins = 20, color = "black", fill = "lightblue", alpha = 0.7) +
+  geom_line(aes(x = x_j3, y = densidade_j3), color = "red", size = 1) +
+  theme_minimal() +
+  xlab("Valores") +
+  ylab("Densidade") +
+  ggtitle(paste("Cenário 3")) +
+  theme(plot.title = element_text(size = 10))  # Ajuste o tamanho do texto do título aqui
+# Mostrar o gráfico para j3
+print(grafico_j3)
+
+# Gráfico para j4 e graus de liberdade ?
+dados_j4 <- valores_40000_CEN4[,1]
+gl_j4 <- 48
+
+x_j4 <- seq(0, max(dados_j4) + 5, length = 1000)
+densidade_j4 <- dchisq(x_j4, df = gl_j4)
+
+grafico_j4 <- ggplot() +
+  geom_histogram(aes(x = dados_j4, y = ..density..), bins = 20, color = "black", fill = "lightblue", alpha = 0.7) +
+  geom_line(aes(x = x_j4, y = densidade_j4), color = "red", size = 1) +
+  theme_minimal() +
+  xlab("Valores") +
+  ylab("Densidade") +
+  ggtitle(paste("Cenário 4")) +
+  theme(plot.title = element_text(size = 10))  # Ajuste o tamanho do texto do título aqui
+# Mostrar o gráfico para j4
+print(grafico_j4)
+
+# Criar a tela com os quatro gráficos usando grid.arrange
+grid.arrange(grafico_j1, grafico_j2, grafico_j3, grafico_j4, ncol = 2)
+
+
