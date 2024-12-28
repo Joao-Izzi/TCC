@@ -1,0 +1,178 @@
+################################################################################
+########################### ENTROPIA DE TRANSFERENCIA ##########################
+library(gtools)
+#função que faz permutações e depois adiciona 0 e 1 na frente, pra ver o x_atual
+permutacoes_bloco_conjunta <- function(N) {
+  numeros <- c(0, 1)
+  perm <- permutations(n = 2, r = N, v = numeros, repeats.allowed = TRUE)
+  perm <- rbind(perm, perm)
+  perm <- cbind(perm, c(rep(1, nrow(perm)/2),rep(0,nrow(perm)/2)))
+  return(perm)
+}
+
+#função que faz as permutações
+permutacoes <- function(N) {
+  numeros <- c(0, 1)
+  perm <- permutations(n = 2, r = N, v = numeros, repeats.allowed = TRUE)
+  return(perm)
+}
+
+#faz a conjunta de x_(-1,-k) em blocos, y_(-1,-k), z_(-1,-k) em blocos e do x_0 N é o passado, n é o numero de confundidores
+estima_conjunta_blocos_xyz_x <- function(cadeia1, cadeia2, confundidores, N, n){
+  if (n == 1){
+    confundidores = matrix(confundidores, nrow = 1)
+  }
+  perm_cadeia <- permutacoes_bloco_conjunta((2*N) + n*N ) # cria as permutações possiveis da cadeia
+  conjunta_estimada <- matrix(rep(0, length(perm_cadeia[,1])), nrow = length(perm_cadeia[,1]), ncol = 1)
+  # encontra a linha representada pela sequencia atual nas permutações
+  for (i in (N+1):(length(cadeia1))){ # memoria 2 por exemplo, o i começa no 3 cada cadeia olha os termos [(1:2)] = [(3-2):(3-1)]
+    atual_cadeia <- c(cadeia2[(i-N):(i-1)], # passado de y
+                      confundidores[1:n,(i-N):(i-1)], # passado de z
+                      cadeia1[(i-N):(i)]) # passado + atual de x
+    linha <- encontrar_linha(atual_cadeia, perm_cadeia)
+    conjunta_estimada[linha, ] <- conjunta_estimada[linha, ] + 1 
+  }
+  for (i in 1:length(conjunta_estimada)) {
+    if (conjunta_estimada[i,] == 0) {
+      conjunta_estimada[i,] <- conjunta_estimada[i, ] + 1
+    }
+  }
+  
+  return(conjunta_estimada)
+}
+
+#faz a conjunta de x_(-1,k) em blocos e y_(-1,k) em blocos.
+estima_conjunta_blocos_xyz <- function(cadeia1, cadeia2, confundidores, N, n){
+  if (n == 1){
+    confundidores = matrix(confundidores, nrow = 1)
+  }
+  perm_cadeia <- permutacoes(2*N + n*N)
+  conjunta_estimada <- matrix(rep(0, length(perm_cadeia[,1])), nrow = length(perm_cadeia[,1]), ncol = 1)
+  for (i in (N+1):(length(cadeia1))){
+    atual_cadeia <- c(cadeia2[(i-N):(i-1)],
+                      confundidores[1:n,(i-N):(i-1)],
+                      cadeia1[(i-N):(i-1)])
+    linha <- encontrar_linha(atual_cadeia, perm_cadeia)
+    conjunta_estimada[linha, ] <- conjunta_estimada[linha, ] + 1 
+  }
+  for (i in 1:length(conjunta_estimada)) {
+    if (conjunta_estimada[i,] == 0) {
+      conjunta_estimada[i,] <- conjunta_estimada[i, ] + 1
+    }
+  }
+  
+  return(conjunta_estimada)
+}
+
+#conjuntada estimada do x_(-1,k) em blocos e x atual
+estima_conjunta_blocos_xz_x <- function(cadeia1, confundidores, N, n){
+  if (n == 1){
+    confundidores = matrix(confundidores, nrow = 1)
+  }
+  perm_cadeia <- permutacoes_bloco_conjunta(N + n*N)
+  conjunta_estimada <- matrix(rep(0, length(perm_cadeia[,1])), nrow = length(perm_cadeia[,1]), ncol = 1)
+  for (i in (N+1):(length(cadeia1))){
+    atual_cadeia <- c(confundidores[1:n,(i-N):(i-1)],
+                      cadeia1[(i-N):i])
+    linha <- encontrar_linha(atual_cadeia, perm_cadeia)
+    conjunta_estimada[linha, ] <- conjunta_estimada[linha, ] + 1 
+  }
+  for (i in 1:length(conjunta_estimada)) {
+    if (conjunta_estimada[i,] == 0) {
+      conjunta_estimada[i,] <- conjunta_estimada[i, ] + 1
+    }
+  }
+  
+  return(conjunta_estimada)
+}
+
+#conjuntada estimada do x_(-1,k) em blocos apenas
+estima_conjunta_blocos_xz <- function(cadeia1, confundidores, N, n){
+  if (n == 1){
+    confundidores = matrix(confundidores, nrow = 1)
+  }
+  perm_cadeia <- permutacoes(N + n*N)
+  conjunta_estimada <- matrix(rep(0, length(perm_cadeia[,1])), nrow = length(perm_cadeia[,1]), ncol = 1)
+  for (i in (N+1):(length(cadeia1))){
+    atual_cadeia <- c(confundidores[1:n,(i-N):(i-1)],
+                      cadeia1[(i-N):(i-1)])
+    linha <- encontrar_linha(atual_cadeia, perm_cadeia)
+    conjunta_estimada[linha, ] <- conjunta_estimada[linha, ] + 1 
+  }
+  for (i in 1:length(conjunta_estimada)) {
+    if (conjunta_estimada[i,] == 0) {
+      conjunta_estimada[i,] <- conjunta_estimada[i, ] + 1
+    }
+  }
+  
+  return(conjunta_estimada)
+}
+
+#função encontrar linha
+encontrar_linha <- function(vetor_cadeia, perm) {
+  N <- length(vetor_cadeia)
+  linha <- which(apply(perm, 1, function(row) all(row[1:N] == vetor_cadeia)))
+  return(linha)
+}
+
+#eu já calculo 2n*ent_trans pra ja vir com o estimador, N é a memória
+#entropia de transferencia de y p/ x, para fazer x p/ y, na hora de chamar a função colocar a cadeia 2 antes da cadeia 1.
+entropia_transferencia <- function(cadeia1,cadeia2, confundidores, N, n){ 
+  #conjunta de xyz em blocos e x atual.
+  conjunta_xyzx <- estima_conjunta_blocos_xyz_x(cadeia1,cadeia2, confundidores, N, n)
+  p_xyzx <- conjunta_xyzx/sum(conjunta_xyzx)
+  #conjunta de xyz em blocos repetidas para ter o numero de linhas da conjunta_xyzx
+  conjunta_xyz <- estima_conjunta_blocos_xyz(cadeia1,cadeia2, confundidores, N, n)
+  p_xyz <- conjunta_xyz/sum(conjunta_xyz)
+  #conjunta de xz em blocos com a xz atual repetira para ter o numero de linhas da conjunta_xyzx
+  conjuntaxz_x <- estima_conjunta_blocos_xz_x(cadeia1, confundidores, N, n)
+  p_xzx <- conjuntaxz_x/sum(conjuntaxz_x)
+  #conjunta de xz em blocos sem a x atual repetida para ter o número de linhas da conjunta_xyzx
+  conjuntaxz <- estima_conjunta_blocos_xz(cadeia1, confundidores, N, n)
+  p_xz <- conjuntaxz/sum(conjuntaxz)
+  
+  # Gerando as permutações
+  permxyzx <- permutacoes_bloco_conjunta((2*N) + n*N )
+  permxz <- permutacoes(N + n*N )
+  
+  # Inicializando a matriz c
+  c <- matrix(0, nrow = length(permxyzx[, 1]), ncol = 4) # o número de colunas é pq tem 4 probabilidades.
+  
+  # Verificando condição e preenchendo a matriz c
+  for (j in 1:nrow(permxz)) {
+    for (i in 1:nrow(permxyzx)) {
+      if (all(permxyzx[i,][(N+1):(ncol(permxyzx)-1)] == permxz[j,])){ #vendo as linhas primeiro
+        c[i, 1] <- j
+        # Verifica se o índice é menor ou igual ao número total de permutações
+        if (i <= nrow(permxyzx) / 2) {
+          # Metade dos valores permanecem iguais
+          c[i, 2] <- j
+        } else {
+          # Outra metade é incrementada pelo comprimento de permx
+          c[i, 2] <- j + nrow(permxz)
+        }
+      }
+    }
+  }
+  
+  # Preenchendo a terceira coluna
+  c[, 3] <- cbind(1:(length(permxyzx[, 1])/2),1:(length(permxyzx[, 1])/2))
+  
+  # Preenchendo a quarta coluna
+  c[, 4] <- 1:length(permxyzx[, 1])
+  print(c)
+  soma <- 0
+  
+  for (i in 1:length(c[,1])){
+    indices <- c[i,]
+    soma <- soma + p_xyzx[indices[4]] * log((p_xyzx[indices[4]]/p_xyz[indices[3]])/(p_xzx[indices[2]]/p_xz[indices[1]]))
+  }
+  
+  
+  return(2*length(cadeia1)*soma) #eu já calculo 2n*ent_trans pra ja vir com o estima
+}
+
+entropia_transferencia(X[2,],X[1,],X[c(3,4),],3,2)
+#cadeia que sofre a interferência, cadeia que interfere,
+#Confundidores, memória e nºde confundidores
+
